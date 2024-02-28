@@ -5,7 +5,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CommandLineParser implements ApplicationRunner {
+public class EmissionCalculatorService implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         System.out.println("# NonOptionArgs: " + args.getNonOptionArgs().size());
