@@ -37,7 +37,7 @@ public abstract class VehicleEmissionRate {
         if (StringUtils.isEmpty(vehicleType)) {
             throw new InvalidVehicleTypeException("Vehicle Type Can't be null");
         }
-        if (emissionRateMap.containsKey(vehicleType)) {
+        if (!emissionRateMap.containsKey(vehicleType)) {
             throw new InvalidVehicleTypeException("Invalid Vehicle Type :" + vehicleType);
         }
         return emissionRateMap.get(vehicleType);
