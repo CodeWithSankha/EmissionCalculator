@@ -9,16 +9,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.bind.Name;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
+
+import static com.sap.assignment.emissioncalculator.workflow.ConfigurationBean.API_TOKEN_HEADER_TYPE;
 
 @Component
 public class DistanceFetcherWorkFlow implements Function<InternalDataModel, InternalDataModel> {
@@ -27,11 +31,10 @@ public class DistanceFetcherWorkFlow implements Function<InternalDataModel, Inte
 
     @Value("${OPEN_ROUTE_TOKEN}")
     private String openRouteTokenApi;
-    final private static String API_TOKEN_HEADER_TYPE = "Authorization";
 
-    final private static String V2_MATRIX_PROFILE_URL = "https://api.openrouteservice.org/v2/matrix/driving-car";
-
-    private WebClient webClient = WebClient.create(V2_MATRIX_PROFILE_URL);
+    @Inject
+    @Named("matrix_v2_profile")
+    private WebClient webClient;
 
     @Autowired
     private JsonMapper jsonMapper;
@@ -55,7 +58,7 @@ public class DistanceFetcherWorkFlow implements Function<InternalDataModel, Inte
         logger.info("V2_MATRIX_PROFILE Request: {}", payload);
 
         // Entity<String> payload = Entity.json({"locations":[[9.70093,48.477473],[9.207916,49.153868],[37.573242,55.801281],[115.663757,38.106467]]});
-        String response =  webClient
+        String response = webClient
                 .method(HttpMethod.POST)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
