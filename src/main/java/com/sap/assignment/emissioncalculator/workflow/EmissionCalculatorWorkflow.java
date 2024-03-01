@@ -11,9 +11,7 @@ import java.util.function.Function;
 
 @Component
 public class EmissionCalculatorWorkflow implements Function<InternalDataModel, InternalDataModel> {
-
     private static final Logger logger = LoggerFactory.getLogger(EmissionCalculatorWorkflow.class);
-
     @Override
     public InternalDataModel apply(InternalDataModel internalDataModel) {
         final String vehicleType = internalDataModel.requestParameters.vehicleType().apply(internalDataModel.requestParameters.args());
