@@ -13,6 +13,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Component
 public class EmissionCalculatorService implements ApplicationRunner {
@@ -55,14 +56,14 @@ public class EmissionCalculatorService implements ApplicationRunner {
         });
 
         Flux<InternalDataModel> model = Flux.just(args)
-                .map(requestTransferWorkflow)
-                .map(geoCordFetcherWorkFlow)
-                .map(coordinateResolverWorkflow);/*
+                .flatMap(requestTransferWorkflow)
+                .flatMap(geoCordFetcherWorkFlow);/*
+                .map(coordinateResolverWorkflow)
                 .map(distanceFetcherWorkFlow)
                 .map(emissionCalculatorWorkflow);*/
 
 
-        model
+        model.log()
                 .subscribe(data -> {
                     logger.info("Your trip caused {}kg of CO2-equivalent", data.co2emission);
                 });

@@ -4,15 +4,16 @@ import com.sap.assignment.emissioncalculator.models.InternalDataModel;
 import com.sap.assignment.emissioncalculator.models.RequestParameters;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
 
 import java.util.function.Function;
 
 @Component
-public class RequestTransferWorkflow implements Function<ApplicationArguments, InternalDataModel> {
+public class RequestTransferWorkflow implements Function<ApplicationArguments, Flux<InternalDataModel>> {
     @Override
-    public InternalDataModel apply(ApplicationArguments args) {
+    public Flux<InternalDataModel> apply(ApplicationArguments args) {
         InternalDataModel internalDataModel = new InternalDataModel();
         internalDataModel.requestParameters = new RequestParameters(args);
-        return internalDataModel;
+        return Flux.just(internalDataModel);
     }
 }

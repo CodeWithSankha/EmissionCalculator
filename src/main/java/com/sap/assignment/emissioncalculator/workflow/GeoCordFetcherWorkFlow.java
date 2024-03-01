@@ -16,6 +16,9 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
+import reactor.util.function.Tuple2;
 
 import java.nio.charset.Charset;
 import java.util.Map;
@@ -26,7 +29,7 @@ import static com.sap.assignment.emissioncalculator.workflow.ConfigurationBean.C
 import static com.sap.assignment.emissioncalculator.workflow.ConfigurationBean.GEOCODE_SEARCH_URL;
 
 @Component
-public class GeoCordFetcherWorkFlow implements Function<InternalDataModel, InternalDataModel> {
+public class GeoCordFetcherWorkFlow implements Function<InternalDataModel, Flux<InternalDataModel>> {
 
     private static final Logger logger = LoggerFactory.getLogger(GeoCordFetcherWorkFlow.class);
 
@@ -41,44 +44,47 @@ public class GeoCordFetcherWorkFlow implements Function<InternalDataModel, Inter
     private JsonMapper jsonMapper;
 
     @Override
-    public InternalDataModel apply(InternalDataModel data) {
-        fetchCoordsForCity(data.requestParameters.startCity().apply(data.requestParameters.args()), data.geoCoordResponses);
-        fetchCoordsForCity(data.requestParameters.endCity().apply(data.requestParameters.args()), data.geoCoordResponses);
-        return data;
+    public Flux<InternalDataModel> apply(InternalDataModel data) {
+        Flux<InternalDataModel> startCityFlux = fetchCoordsForCity(data.requestParameters.startCity().apply(data.requestParameters.args()), data);
+        Flux<InternalDataModel> endCityFlux = fetchCoordsForCity(data.requestParameters.endCity().apply(data.requestParameters.args()), data);
+        return Flux.zip(startCityFlux, endCityFlux).map(Tuple2::getT1);//.flatMap(s -> data);
+        //return Flux.just(data);
 
         // Flux<GeoCodeSearchResponse> startCityFlux = fetchCoordsForCity(data.requestParameters.startCity(), data.requestParameters.args(), data);
         // Flux<GeoCodeSearchResponse> endCityFlux = fetchCoordsForCity(data.requestParameters.endCity(), data.requestParameters.args(), data);
         // return Flux.zip(startCityFlux, endCityFlux).doOnNext(Tuple2::getT1).flatMap(s -> Flux.just(data));
     }
 
-    private void fetchCoordsForCity(String cityName, Map<String, GeoCodeSearchResponse> geoCodeSearchResponseMap) {
+    private Flux<InternalDataModel> fetchCoordsForCity(String cityName, InternalDataModel data) {
         logger.info("Calling: {}", GEOCODE_SEARCH_URL);
         final Map<String, String> queryParams = ImmutableMap.<String, String>builder()
                 .put(API_KEY_TOKEN_NAME, openRouteTokenApi)
                 .put(CITY_NAME_TOKEN_NAME, cityName)
                 .build();
-        webClient
+        return webClient
                 .method(HttpMethod.GET)
                 .uri(GEOCODE_SEARCH_URL, queryParams)
                 .contentType(MediaType.TEXT_PLAIN)
                 .accept(MediaType.TEXT_PLAIN)
                 .acceptCharset(Charset.defaultCharset())
-                .exchangeToFlux(clientResponse -> {
+                .exchangeToMono(clientResponse -> {
                     if (clientResponse.statusCode().equals(HttpStatus.OK)) {
-                        Flux<GeoCodeSearchResponse> response = clientResponse.bodyToFlux(GeoCodeSearchResponse.class);
-                        response.subscribe(responseBody -> {
-                            try {
-                                logger.info("GEOCODE_SEARCH_URL Response for {}: {}", cityName, jsonMapper.writeValueAsString(responseBody));
-                                geoCodeSearchResponseMap.put(cityName, responseBody);
-                            } catch (JsonProcessingException e) {
-                                throw new RuntimeException(e);
-                            }
-                        });
-                        return clientResponse.bodyToFlux(GeoCodeSearchResponse.class);
+                        Mono<GeoCodeSearchResponse> response = clientResponse.bodyToMono(GeoCodeSearchResponse.class);
+                        response.subscribeOn(Schedulers.newParallel(cityName))
+                                .subscribe(responseBody -> {
+                                    try {
+                                        logger.info("GEOCODE_SEARCH_URL Response for {}: {}", cityName, jsonMapper.writeValueAsString(responseBody));
+                                        data.geoCoordResponses.put(cityName, responseBody);
+                                    } catch (JsonProcessingException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                });
+                        return clientResponse.bodyToMono(GeoCodeSearchResponse.class);
                     } else {
                         // Turn to error
                         throw new RuntimeException(GEOCODE_SEARCH_URL + " call failed");
                     }
-                });
+                })
+                .flux().map(s -> data);
     }
 }
