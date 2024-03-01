@@ -1,6 +1,7 @@
 package com.sap.assignment.emissioncalculator.service;
 
-import com.sap.assignment.emissioncalculator.workflow.CoordinateFetcherWorkFlow;
+import com.sap.assignment.emissioncalculator.workflow.CoordinateResolverWorkflow;
+import com.sap.assignment.emissioncalculator.workflow.GeoCordFetcherWorkFlow;
 import com.sap.assignment.emissioncalculator.workflow.DistanceFetcherWorkFlow;
 import com.sap.assignment.emissioncalculator.workflow.EmissionCalculatorWorkflow;
 import com.sap.assignment.emissioncalculator.workflow.RequestTransferWorkflow;
@@ -19,8 +20,12 @@ public class EmissionCalculatorService implements ApplicationRunner {
 
     @Autowired
     private RequestTransferWorkflow requestTransferWorkflow;
+
     @Autowired
-    private CoordinateFetcherWorkFlow coordinateFetcherWorkFlow;
+    private GeoCordFetcherWorkFlow geoCordFetcherWorkFlow;
+
+    @Autowired
+    private CoordinateResolverWorkflow coordinateResolverWorkflow;
     @Autowired
     private DistanceFetcherWorkFlow distanceFetcherWorkFlow;
     @Autowired
@@ -50,7 +55,8 @@ public class EmissionCalculatorService implements ApplicationRunner {
 
         Flux.just(args)
                 .map(requestTransferWorkflow)
-                .map(coordinateFetcherWorkFlow)
+                .map(geoCordFetcherWorkFlow)
+                .map(coordinateResolverWorkflow)
                 .map(distanceFetcherWorkFlow)
                 .map(emissionCalculatorWorkflow)
                 .subscribe(data -> {

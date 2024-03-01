@@ -14,6 +14,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -39,23 +40,21 @@ public class DistanceFetcherWorkFlow implements Function<InternalDataModel, Inte
 
     @Override
     public InternalDataModel apply(InternalDataModel internalDataModel) {
-        internalDataModel.distance = getDistanceBetween(internalDataModel.startCityCoord, internalDataModel.endCityCoord);
+        internalDataModel.distance = fetchDistance(internalDataModel.startCityCoord, internalDataModel.endCityCoord);
         return internalDataModel;
     }
 
-    private double getDistanceBetween(Coordinates startCityCoord, Coordinates endCityCoord) {
+    private double fetchDistance(List<Double> startCityCoord, List<Double> endCityCoord) {
         String payload = null;
         MatrixRequestV2 requestV2 = new MatrixRequestV2();
-        requestV2.locations = Arrays.asList(startCityCoord.coords(), endCityCoord.coords());
+        requestV2.locations = Arrays.asList(startCityCoord, endCityCoord);
         try {
             payload = jsonMapper.writeValueAsString(requestV2);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
 
-        logger.info("V2_MATRIX_PROFILE Request: {}", payload);
-
-        // Entity<String> payload = Entity.json({"locations":[[9.70093,48.477473],[9.207916,49.153868],[37.573242,55.801281],[115.663757,38.106467]]});
+        logger.info("MATRIX_V2_PROFILE Request: {}", payload);
         String response = webClient
                 .method(HttpMethod.POST)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -65,13 +64,13 @@ public class DistanceFetcherWorkFlow implements Function<InternalDataModel, Inte
                 .bodyValue(payload).retrieve()
                 .bodyToFlux(String.class)
                 .blockFirst();
-        logger.info("V2_MATRIX_PROFILE Request: {}", response);
-        return 4000.0;
+        logger.info("MATRIX_V2_PROFILE Request: {}", response);
+        return 42.000f;
     }
 
     static class MatrixRequestV2 {
         @JsonProperty("locations")
-        public List<double[]> locations;
+        public List<Double> locations;
     }
 
 }
