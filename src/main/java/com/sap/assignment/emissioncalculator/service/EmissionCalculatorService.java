@@ -57,13 +57,14 @@ public class EmissionCalculatorService implements ApplicationRunner {
 
         Flux<InternalDataModel> model = Flux.just(args)
                 .flatMap(requestTransferWorkflow)
-                .flatMap(geoCordFetcherWorkFlow);/*
+                .flatMap(geoCordFetcherWorkFlow)
                 .map(coordinateResolverWorkflow)
                 .map(distanceFetcherWorkFlow)
-                .map(emissionCalculatorWorkflow);*/
+                .map(emissionCalculatorWorkflow);
 
 
-        model.log()
+        model
+                //.log()
                 .subscribe(data -> {
                     logger.info("Your trip caused {}kg of CO2-equivalent", data.co2emission);
                 });

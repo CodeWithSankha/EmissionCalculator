@@ -8,8 +8,24 @@ import java.util.Map;
 
 @ToString
 public class GeoCodeSearchResponse {
+
+    @JsonProperty("geocoding")
+    public GeoCoding geoCoding;
+
     @JsonProperty("features")
     public List<Feature> features;
+
+    @ToString
+    public static class GeoCoding {
+        @JsonProperty("query")
+        public Query query;
+    }
+
+    @ToString
+    public static class Query {
+        @JsonProperty("text")
+        public String cityName;
+    }
 
     @ToString
     public static class Feature {

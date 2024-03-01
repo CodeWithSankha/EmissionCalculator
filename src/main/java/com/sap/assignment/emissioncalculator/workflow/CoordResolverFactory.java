@@ -1,6 +1,8 @@
 package com.sap.assignment.emissioncalculator.workflow;
 
 import com.sap.assignment.emissioncalculator.models.InternalDataModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
@@ -24,21 +26,22 @@ public class CoordResolverFactory {
     }
 
     public interface CoordResolver {
-        Consumer<InternalDataModel> resolveCoordinates(InternalDataModel internalDataModel);
+        void resolveCoordinates(InternalDataModel internalDataModel);
     }
 
     @Component
     static class FirstCoordResolver implements CoordResolver {
 
-        @Override
-        public Consumer<InternalDataModel> resolveCoordinates(InternalDataModel internalDataModel) {
-            return (data) -> {
-                String startCityName = internalDataModel.requestParameters.startCity().apply(internalDataModel.requestParameters.args());
-                internalDataModel.cityCoords.put(startCityName, internalDataModel.geoCoordResponses.get(startCityName).features.get(0).geometry.coordinates);
+        private static final Logger logger = LoggerFactory.getLogger(FirstCoordResolver.class);
 
-                String endCityName = internalDataModel.requestParameters.endCity().apply(internalDataModel.requestParameters.args());
-                internalDataModel.cityCoords.put(endCityName, internalDataModel.geoCoordResponses.get(endCityName).features.get(0).geometry.coordinates);
-            };
+        @Override
+        public void resolveCoordinates(InternalDataModel internalDataModel) {
+            String startCityName = internalDataModel.requestParameters.startCity().apply(internalDataModel.requestParameters.args());
+            internalDataModel.cityCoords.put(startCityName, internalDataModel.geoCoordResponses.get(startCityName).features.get(0).geometry.coordinates);
+
+            String endCityName = internalDataModel.requestParameters.endCity().apply(internalDataModel.requestParameters.args());
+            internalDataModel.cityCoords.put(endCityName, internalDataModel.geoCoordResponses.get(endCityName).features.get(0).geometry.coordinates);
+            logger.info("City Coords {}", internalDataModel.cityCoords);
         }
     }
 }

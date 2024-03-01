@@ -6,11 +6,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
 
 import java.util.function.Function;
 
 @Component
-public class CoordinateResolverWorkflow implements Function<InternalDataModel, InternalDataModel> {
+public class CoordinateResolverWorkflow implements Function<InternalDataModel, Flux<InternalDataModel>> {
 
     private static final Logger logger = LoggerFactory.getLogger(CoordinateResolverWorkflow.class);
 
@@ -21,15 +22,17 @@ public class CoordinateResolverWorkflow implements Function<InternalDataModel, I
     private CoordResolverFactory coordResolverFactory;
 
     @Override
-    public InternalDataModel apply(InternalDataModel data) {
-
-        logger.info("coordResolvePreference: {}", coordResolvePreference);
-        try {
-            CoordResolverFactory.CoordResolver coordResolver = coordResolverFactory.getCoordResolver(coordResolvePreference);
-            coordResolver.resolveCoordinates(data);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return data;
+    public Flux<InternalDataModel> apply(InternalDataModel model) {
+        return Flux.just(model)
+                .map(data -> {
+                    logger.info("coordResolvePreference: {}", coordResolvePreference);
+                    try {
+                        CoordResolverFactory.CoordResolver coordResolver = coordResolverFactory.getCoordResolver(coordResolvePreference);
+                        coordResolver.resolveCoordinates(data);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                    return data;
+                });
     }
 }
