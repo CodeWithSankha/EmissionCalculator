@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.util.function.Consumer;
 
 @Configuration
 public class CoordResolverFactory {
@@ -23,22 +24,21 @@ public class CoordResolverFactory {
     }
 
     public interface CoordResolver {
-        void resolveCoord(InternalDataModel internalDataModel);
+        Consumer<InternalDataModel> resolveCoordinates(InternalDataModel internalDataModel);
     }
 
     @Component
     static class FirstCoordResolver implements CoordResolver {
 
         @Override
-        public void resolveCoord(InternalDataModel internalDataModel) {
-            internalDataModel.startCityGeoCoordResponse
-                    .subscribe(s -> {
-                        internalDataModel.startCityCoord = s.features.get(0).geometry.coordinates;
-                    });
-            internalDataModel.startCityGeoCoordResponse
-                    .subscribe(s -> {
-                        internalDataModel.endCityCoord = s.features.get(0).geometry.coordinates;
-                    });
+        public Consumer<InternalDataModel> resolveCoordinates(InternalDataModel internalDataModel) {
+            return (data) -> {
+                String startCityName = internalDataModel.requestParameters.startCity().apply(internalDataModel.requestParameters.args());
+                internalDataModel.cityCoords.put(startCityName, internalDataModel.geoCoordResponses.get(startCityName).features.get(0).geometry.coordinates);
+
+                String endCityName = internalDataModel.requestParameters.endCity().apply(internalDataModel.requestParameters.args());
+                internalDataModel.cityCoords.put(endCityName, internalDataModel.geoCoordResponses.get(endCityName).features.get(0).geometry.coordinates);
+            };
         }
     }
 }

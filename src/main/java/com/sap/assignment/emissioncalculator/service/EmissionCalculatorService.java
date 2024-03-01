@@ -1,5 +1,6 @@
 package com.sap.assignment.emissioncalculator.service;
 
+import com.sap.assignment.emissioncalculator.models.InternalDataModel;
 import com.sap.assignment.emissioncalculator.workflow.CoordinateResolverWorkflow;
 import com.sap.assignment.emissioncalculator.workflow.GeoCordFetcherWorkFlow;
 import com.sap.assignment.emissioncalculator.workflow.DistanceFetcherWorkFlow;
@@ -53,14 +54,25 @@ public class EmissionCalculatorService implements ApplicationRunner {
             System.out.println(optionName + "=" + args.getOptionValues(optionName));
         });
 
-        Flux.just(args)
+        Flux<InternalDataModel> model = Flux.just(args)
                 .map(requestTransferWorkflow)
                 .map(geoCordFetcherWorkFlow)
-                .map(coordinateResolverWorkflow)
+                .map(coordinateResolverWorkflow);/*
                 .map(distanceFetcherWorkFlow)
-                .map(emissionCalculatorWorkflow)
+                .map(emissionCalculatorWorkflow);*/
+
+
+        model
                 .subscribe(data -> {
                     logger.info("Your trip caused {}kg of CO2-equivalent", data.co2emission);
                 });
+                //.flatMap(emissionCalculatorWorkflow)
+
+        // logger.info("Your trip caused {}kg of CO2-equivalent", model.co2emission);
+        /*
+
+                .subscribe(data -> {
+                    logger.info("Your trip caused {}kg of CO2-equivalent", data.co2emission);
+                });*/
     }
 }

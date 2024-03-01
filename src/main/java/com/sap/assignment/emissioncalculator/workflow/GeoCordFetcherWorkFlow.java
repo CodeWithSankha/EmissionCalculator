@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.ApplicationArguments;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -42,21 +41,23 @@ public class GeoCordFetcherWorkFlow implements Function<InternalDataModel, Inter
     private JsonMapper jsonMapper;
 
     @Override
-    public InternalDataModel apply(InternalDataModel internalDataModel) {
-        internalDataModel.startCityGeoCoordResponse = fetchCoordsForCity(internalDataModel.requestParameters.startCity(), internalDataModel.requestParameters.args());
-        internalDataModel.endCityCoordResponse = fetchCoordsForCity(internalDataModel.requestParameters.endCity(), internalDataModel.requestParameters.args());
-        return internalDataModel;
+    public InternalDataModel apply(InternalDataModel data) {
+        fetchCoordsForCity(data.requestParameters.startCity().apply(data.requestParameters.args()), data.geoCoordResponses);
+        fetchCoordsForCity(data.requestParameters.endCity().apply(data.requestParameters.args()), data.geoCoordResponses);
+        return data;
+
+        // Flux<GeoCodeSearchResponse> startCityFlux = fetchCoordsForCity(data.requestParameters.startCity(), data.requestParameters.args(), data);
+        // Flux<GeoCodeSearchResponse> endCityFlux = fetchCoordsForCity(data.requestParameters.endCity(), data.requestParameters.args(), data);
+        // return Flux.zip(startCityFlux, endCityFlux).doOnNext(Tuple2::getT1).flatMap(s -> Flux.just(data));
     }
 
-    private Flux<GeoCodeSearchResponse> fetchCoordsForCity(Function<ApplicationArguments, String> cityName, ApplicationArguments args) {
+    private void fetchCoordsForCity(String cityName, Map<String, GeoCodeSearchResponse> geoCodeSearchResponseMap) {
         logger.info("Calling: {}", GEOCODE_SEARCH_URL);
-
         final Map<String, String> queryParams = ImmutableMap.<String, String>builder()
                 .put(API_KEY_TOKEN_NAME, openRouteTokenApi)
-                .put(CITY_NAME_TOKEN_NAME, cityName.apply(args))
+                .put(CITY_NAME_TOKEN_NAME, cityName)
                 .build();
-
-        return webClient
+        webClient
                 .method(HttpMethod.GET)
                 .uri(GEOCODE_SEARCH_URL, queryParams)
                 .contentType(MediaType.TEXT_PLAIN)
@@ -65,9 +66,10 @@ public class GeoCordFetcherWorkFlow implements Function<InternalDataModel, Inter
                 .exchangeToFlux(clientResponse -> {
                     if (clientResponse.statusCode().equals(HttpStatus.OK)) {
                         Flux<GeoCodeSearchResponse> response = clientResponse.bodyToFlux(GeoCodeSearchResponse.class);
-                        response.subscribe(s -> {
+                        response.subscribe(responseBody -> {
                             try {
-                                logger.info("GEOCODE_SEARCH_URL Response: {}", jsonMapper.writeValueAsString(s));
+                                logger.info("GEOCODE_SEARCH_URL Response for {}: {}", cityName, jsonMapper.writeValueAsString(responseBody));
+                                geoCodeSearchResponseMap.put(cityName, responseBody);
                             } catch (JsonProcessingException e) {
                                 throw new RuntimeException(e);
                             }
