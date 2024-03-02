@@ -15,8 +15,8 @@ public class CoordinateResolverWorkflow implements Function<InternalDataModel, F
 
     private static final Logger logger = LoggerFactory.getLogger(CoordinateResolverWorkflow.class);
 
-    @Value("${coord.resolve.preference}")
-    private String coordResolvePreference;
+    @Value("${coordinate.resolver.preference}")
+    private String coordResolverPreference;
 
     @Autowired
     private CoordResolverFactory coordResolverFactory;
@@ -24,8 +24,8 @@ public class CoordinateResolverWorkflow implements Function<InternalDataModel, F
     @Override
     public Flux<InternalDataModel> apply(InternalDataModel data) {
         try {
-            logger.info("coordResolvePreference: {}", coordResolvePreference);
-            CoordResolverFactory.CoordResolver coordResolver = coordResolverFactory.getCoordResolver(coordResolvePreference);
+            logger.info("coordResolverPreference: {}", coordResolverPreference);
+            CoordResolverFactory.CoordResolver coordResolver = coordResolverFactory.getCoordResolver(coordResolverPreference);
             coordResolver.resolveCoordinates(data);
         } catch (Exception e) {
             throw new RuntimeException(e);
