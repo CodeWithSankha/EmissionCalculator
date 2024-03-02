@@ -6,7 +6,6 @@ import com.sap.assignment.emissioncalculator.models.VehicleEmissionRate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
 
 import java.util.function.Function;
 
@@ -16,9 +15,9 @@ public class EmissionCalculatorWorkflow implements Function<InternalDataModel, I
 
     @Override
     public InternalDataModel apply(InternalDataModel data) {
-        final String vehicleType = data.requestParameters.vehicleType().apply(data.requestParameters.args());
+        final String transportationMode = data.requestParameters.transportationMode();
         try {
-            final int emissionRate = VehicleEmissionRate.getEmissionRateByVehicleType(vehicleType);
+            final int emissionRate = VehicleEmissionRate.getEmissionRateByVehicleType(transportationMode);
             final double distance = data.distance;
             data.co2emission = (distance * emissionRate) / 1000;
         } catch (InvalidVehicleTypeException e) {

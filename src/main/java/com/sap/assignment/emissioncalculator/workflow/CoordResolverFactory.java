@@ -36,10 +36,10 @@ public class CoordResolverFactory {
 
         @Override
         public void resolveCoordinates(InternalDataModel internalDataModel) {
-            String startCityName = internalDataModel.requestParameters.startCity().apply(internalDataModel.requestParameters.args());
+            String startCityName = internalDataModel.requestParameters.startCity();
             internalDataModel.cityCoords.put(startCityName, internalDataModel.geoCoordResponses.get(startCityName).features.get(0).geometry.coordinates);
 
-            String endCityName = internalDataModel.requestParameters.endCity().apply(internalDataModel.requestParameters.args());
+            String endCityName = internalDataModel.requestParameters.endCity();
             internalDataModel.cityCoords.put(endCityName, internalDataModel.geoCoordResponses.get(endCityName).features.get(0).geometry.coordinates);
             logger.info("City Coords {}", internalDataModel.cityCoords);
         }

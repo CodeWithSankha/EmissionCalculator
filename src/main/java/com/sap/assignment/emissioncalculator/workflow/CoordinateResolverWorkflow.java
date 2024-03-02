@@ -23,13 +23,15 @@ public class CoordinateResolverWorkflow implements Function<InternalDataModel, F
 
     @Override
     public Flux<InternalDataModel> apply(InternalDataModel data) {
-        try {
-            logger.info("coordResolverPreference: {}", coordResolverPreference);
-            CoordResolverFactory.CoordResolver coordResolver = coordResolverFactory.getCoordResolver(coordResolverPreference);
-            coordResolver.resolveCoordinates(data);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return Flux.just(data);
+        return Flux.just(data).map(s -> {
+            try {
+                logger.info("coordResolverPreference: {}", coordResolverPreference);
+                CoordResolverFactory.CoordResolver coordResolver = coordResolverFactory.getCoordResolver(coordResolverPreference);
+                coordResolver.resolveCoordinates(data);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            return data;
+        });
     }
 }

@@ -4,8 +4,11 @@ import org.springframework.boot.ApplicationArguments;
 
 import java.util.function.Function;
 
-public record RequestParameters(ApplicationArguments args) {
-    public Function<ApplicationArguments, String> startCity() {
+public record RequestParameters(String startCity,
+                                String endCity,
+                                String transportationMode
+) {
+/*    public Function<ApplicationArguments, String> startCity() {
         return (args) -> args.getOptionValues("start").get(0);
     }
 
@@ -13,7 +16,7 @@ public record RequestParameters(ApplicationArguments args) {
         return (args) -> args.getOptionValues("end").get(0);
     }
 
-    public Function<ApplicationArguments, String> vehicleType() {
+    public Function<ApplicationArguments, String> transportationMode() {
         return (args) -> args.getOptionValues("transportation-method").get(0);
-    }
+    }*/
 }

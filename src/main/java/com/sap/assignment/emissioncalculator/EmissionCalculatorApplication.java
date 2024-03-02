@@ -1,7 +1,9 @@
 package com.sap.assignment.emissioncalculator;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
@@ -9,6 +11,8 @@ import org.springframework.context.annotation.PropertySource;
 public class EmissionCalculatorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EmissionCalculatorApplication.class, args);
+		new SpringApplicationBuilder(EmissionCalculatorApplication.class)
+				.web(WebApplicationType.REACTIVE)
+				.run(args);
 	}
 }
