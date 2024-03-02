@@ -23,13 +23,13 @@ public class EmissionCalculatorRestController {
     @PostMapping("/calculate_emission")
     public ResponseEntity<String> calculate_emission(@RequestBody RestRequestParameters body) {
         if(body.startCity == null) {
-            throw new InvalidArgsException("start_city shouldn't be null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("start_city shouldn't be null");
         }
         if(body.endCity == null) {
-            throw new InvalidArgsException("end_city shouldn't be null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("end_city shouldn't be null");
         }
         if(body.transportationMode == null) {
-            throw new InvalidArgsException("transportation_mode shouldn't be null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("transportation_mode shouldn't be null");
         }
         try {
             InternalDataModel model = new InternalDataModel();

@@ -17,6 +17,19 @@ while [[ $# -gt 0 ]]; do
     --transportation-method)
       MODE="$2"
       shift # past argument
+      shift # past argument
+      ;;
+      --start=*)
+      START_CITY=$(echo $1 | cut -d'=' -f2)
+      shift # past value
+      ;;
+    --end=*)
+      END_CITY=$(echo $1 | cut -d'=' -f2)
+      shift # past value
+      ;;
+    --transportation-method=*)
+      MODE=$(echo $1 | cut -d'=' -f2)
+      shift # past argument
       ;;
     -*|--*)
       echo "Unknown option $1"
@@ -30,7 +43,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 CMD="{\"start_city\":\"$START_CITY\", \"end_city\":\"$END_CITY\",  \"transportation_mode\": \"$MODE\"}"
-echo "CMD:$CMD"
+echo "Payload:$CMD"
 curl -X POST \
        'http://localhost:8080/v1/calculate_emission' \
      --header "Content-Type: application/json; charset=utf-8" \
