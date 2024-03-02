@@ -1,7 +1,37 @@
 #!/usr/bin/env bash
+
+POSITIONAL_ARGS=()
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --start)
+      START_CITY="$2"
+      shift # past argument
+      shift # past value
+      ;;
+    --end)
+      END_CITY="$2"
+      shift # past argument
+      shift # past value
+      ;;
+    --transportation-method)
+      MODE="$2"
+      shift # past argument
+      ;;
+    -*|--*)
+      echo "Unknown option $1"
+      exit 1
+      ;;
+    *)
+      POSITIONAL_ARGS+=("$1") # save positional arg
+      shift # past argument
+      ;;
+  esac
+done
+
 curl -X POST \
        'http://localhost:8080/v1/calculate_emission' \
      --header "Content-Type: application/json; charset=utf-8" \
      --header "Accept: application/json" \
-     -d '{"start_city":"Hamburg", "end_city":"Berlin",  "transportation_mode": "medium-diesel-car"}'
+     -d "\"{\"start_city\":\"${START_CITY}\", \"end_city\":\"${END_CITY}\",  \"transportation_mode\": \"${MODE}\""
 

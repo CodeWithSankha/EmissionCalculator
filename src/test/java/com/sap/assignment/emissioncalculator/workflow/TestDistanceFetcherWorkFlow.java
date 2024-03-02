@@ -2,12 +2,8 @@ package com.sap.assignment.emissioncalculator.workflow;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.google.common.collect.ImmutableMap;
-import com.sap.assignment.emissioncalculator.exceptions.InvalidCityNameException;
 import com.sap.assignment.emissioncalculator.models.GeoCodeSearchResponse;
 import com.sap.assignment.emissioncalculator.models.InternalDataModel;
-import com.sap.assignment.emissioncalculator.models.RequestParameters;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,19 +23,16 @@ import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Map;
 
-import static com.sap.assignment.emissioncalculator.workflow.ConfigurationBean.API_KEY_TOKEN_NAME;
-import static com.sap.assignment.emissioncalculator.workflow.ConfigurationBean.CITY_NAME_TOKEN_NAME;
 import static com.sap.assignment.emissioncalculator.workflow.ConfigurationBean.GEOCODE_SEARCH_URL;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(value = "ORS_TOKEN=ORS_TOKEN")
+@SpringBootTest
 @TestPropertySource(locations = "classpath:test.properties")
-public class TestGeoCordFetcherWorkFlow {
+public class TestDistanceFetcherWorkFlow {
 
     @InjectMocks
-    private GeoCordFetcherWorkFlow workFlow;
+    private DistanceFetcherWorkFlow workFlow;
 
     @Mock
     private WebClient webClient;
@@ -54,6 +47,7 @@ public class TestGeoCordFetcherWorkFlow {
     @Mock
     private CoordResolverFactory factory;
 
+
     final private JsonMapper jsonMapper = new JsonMapper();
 
     final private String SRC_CITY_NAME = "hamburg";
@@ -61,18 +55,17 @@ public class TestGeoCordFetcherWorkFlow {
 
     @Before
     public void init() {
-        System.setProperty("ORS_TOKEN", "API_KEY");
         jsonMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         Mockito.when(webClient.method(HttpMethod.GET)).thenReturn(requestBodyUriSpec);
-        Mockito.when(requestBodyUriSpec.uri(Mockito.anyString(), Mockito.anyMap())).thenReturn(requestBodyUriSpec);
+        Mockito.when(requestBodyUriSpec.uri(GEOCODE_SEARCH_URL, requestBodyUriSpec)).thenReturn(requestBodyUriSpec);
         Mockito.when(requestBodyUriSpec.contentType(MediaType.TEXT_PLAIN)).thenReturn(requestBodyUriSpec);
         Mockito.when(requestBodyUriSpec.accept(MediaType.TEXT_PLAIN)).thenReturn(requestBodyUriSpec);
         Mockito.when(requestBodyUriSpec.acceptCharset(Charset.defaultCharset())).thenReturn(requestBodyUriSpec);
         Mockito.when(requestBodyUriSpec.retrieve()).thenReturn(responseSpec);
     }
 
-    //@Test
-    public void testGeoCoordFetcher() {
+    @Test
+    public void testDistanceFetcher() {
 
         Path resourceDirectory = Paths.get("src", "test", "resources", "data");
         String absolutePath = resourceDirectory.toFile().getAbsolutePath();
@@ -83,7 +76,6 @@ public class TestGeoCordFetcherWorkFlow {
             System.out.println(ex);
         }
         final InternalDataModel internalDataModel = new InternalDataModel();
-        internalDataModel.requestParameters = new RequestParameters("Hamburg", "Berlin", "medium-diesel-car");
         internalDataModel.geoCoordResponses.put(SRC_CITY_NAME, response);
         internalDataModel.geoCoordResponses.put(DST_CITY_NAME, response);
         StepVerifier.create(workFlow.apply(internalDataModel)).expectNext(internalDataModel).expectComplete().verify();
