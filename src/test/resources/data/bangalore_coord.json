@@ -1,0 +1,104 @@
+{
+  "geocoding": {
+    "version": "0.2",
+    "attribution": "https://openrouteservice.org/terms-of-service/#attribution-geocode",
+    "query": {
+      "text": "Bangalore",
+      "size": 10,
+      "layers": [
+        "venue",
+        "street",
+        "country",
+        "macroregion",
+        "region",
+        "county",
+        "localadmin",
+        "locality",
+        "borough",
+        "neighbourhood",
+        "continent",
+        "empire",
+        "dependency",
+        "macrocounty",
+        "macrohood",
+        "microhood",
+        "disputed",
+        "postalcode",
+        "ocean",
+        "marinearea"
+      ],
+      "private": false,
+      "lang": {
+        "name": "English",
+        "iso6391": "en",
+        "iso6393": "eng",
+        "via": "header",
+        "defaulted": false
+      },
+      "querySize": 20,
+      "parser": "libpostal",
+      "parsed_text": {
+        "city": "bangalore"
+      }
+    },
+    "warnings": [
+      "performance optimization: excluding 'address' layer"
+    ],
+    "engine": {
+      "name": "Pelias",
+      "author": "Mapzen",
+      "version": "1.0"
+    },
+    "timestamp": 1709237650237
+  },
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.60625,
+          12.96557
+        ]
+      },
+      "properties": {
+        "id": "102030819",
+        "gid": "whosonfirst:locality:102030819",
+        "layer": "locality",
+        "source": "whosonfirst",
+        "source_id": "102030819",
+        "name": "Bangalore",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "India",
+        "country_gid": "whosonfirst:country:85632469",
+        "country_a": "IND",
+        "region": "Karnataka",
+        "region_gid": "whosonfirst:region:85672165",
+        "region_a": "KA",
+        "county": "Bangalore",
+        "county_gid": "whosonfirst:county:890511315",
+        "county_a": "BN",
+        "locality": "Bangalore",
+        "locality_gid": "whosonfirst:locality:102030819",
+        "continent": "Asia",
+        "continent_gid": "whosonfirst:continent:102191569",
+        "label": "Bangalore, KA, India"
+      },
+      "bbox": [
+        77.466204,
+        12.835277,
+        77.786319,
+        13.143131
+      ]
+    }
+  ],
+  "bbox": [
+    77.466204,
+    12.835277,
+    77.786319,
+    13.143131
+  ]
+}

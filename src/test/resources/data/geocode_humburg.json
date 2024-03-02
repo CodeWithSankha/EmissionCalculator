@@ -1,0 +1,484 @@
+{
+  "geocoding": {
+    "version": "0.2",
+    "attribution": "https://openrouteservice.org/terms-of-service/#attribution-geocode",
+    "query": {
+      "text": "Hamburg",
+      "size": 10,
+      "layers": [
+        "venue",
+        "street",
+        "country",
+        "macroregion",
+        "region",
+        "county",
+        "localadmin",
+        "locality",
+        "borough",
+        "neighbourhood",
+        "continent",
+        "empire",
+        "dependency",
+        "macrocounty",
+        "macrohood",
+        "microhood",
+        "disputed",
+        "postalcode",
+        "ocean",
+        "marinearea"
+      ],
+      "private": false,
+      "lang": {
+        "name": "English",
+        "iso6391": "en",
+        "iso6393": "eng",
+        "via": "default",
+        "defaulted": true
+      },
+      "querySize": 20,
+      "parser": "libpostal",
+      "parsed_text": {
+        "city": "hamburg"
+      }
+    },
+    "warnings": [
+      "performance optimization: excluding 'address' layer"
+    ],
+    "engine": {
+      "name": "Pelias",
+      "author": "Mapzen",
+      "version": "1.0"
+    },
+    "timestamp": 1709284518276
+  },
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.007046,
+          53.576158
+        ]
+      },
+      "properties": {
+        "id": "101748841",
+        "gid": "whosonfirst:locality:101748841",
+        "layer": "locality",
+        "source": "whosonfirst",
+        "source_id": "101748841",
+        "name": "Hamburg",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "Germany",
+        "country_gid": "whosonfirst:country:85633111",
+        "country_a": "DEU",
+        "region": "Hamburg",
+        "region_gid": "whosonfirst:region:85682505",
+        "region_a": "HH",
+        "county": "Hamburg",
+        "county_gid": "whosonfirst:county:102064053",
+        "county_a": "HM",
+        "localadmin": "Hamburg",
+        "localadmin_gid": "whosonfirst:localadmin:1377684829",
+        "locality": "Hamburg",
+        "locality_gid": "whosonfirst:locality:101748841",
+        "continent": "Europe",
+        "continent_gid": "whosonfirst:continent:102191581",
+        "label": "Hamburg, Germany"
+      },
+      "bbox": [
+        8.419907,
+        53.39507,
+        10.325959,
+        53.964403
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.953926,
+          43.316682
+        ]
+      },
+      "properties": {
+        "id": "101732543",
+        "gid": "whosonfirst:locality:101732543",
+        "layer": "locality",
+        "source": "whosonfirst",
+        "source_id": "101732543",
+        "name": "Grafton",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "United States",
+        "country_gid": "whosonfirst:country:85633793",
+        "country_a": "USA",
+        "region": "Wisconsin",
+        "region_gid": "whosonfirst:region:85688517",
+        "region_a": "WI",
+        "county": "Ozaukee County",
+        "county_gid": "whosonfirst:county:102081873",
+        "county_a": "OZ",
+        "localadmin": "Grafton",
+        "localadmin_gid": "whosonfirst:localadmin:404495191",
+        "locality": "Grafton",
+        "locality_gid": "whosonfirst:locality:101732543",
+        "continent": "North America",
+        "continent_gid": "whosonfirst:continent:102191575",
+        "label": "Grafton, WI, USA"
+      },
+      "bbox": [
+        -87.979242,
+        43.294716,
+        -87.915354,
+        43.356405
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -78.832812,
+          42.718672
+        ]
+      },
+      "properties": {
+        "id": "85978013",
+        "gid": "whosonfirst:locality:85978013",
+        "layer": "locality",
+        "source": "whosonfirst",
+        "source_id": "85978013",
+        "name": "Hamburg",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "United States",
+        "country_gid": "whosonfirst:country:85633793",
+        "country_a": "USA",
+        "region": "New York",
+        "region_gid": "whosonfirst:region:85688543",
+        "region_a": "NY",
+        "county": "Erie County",
+        "county_gid": "whosonfirst:county:102082387",
+        "county_a": "ER",
+        "localadmin": "Hamburg",
+        "localadmin_gid": "whosonfirst:localadmin:404522347",
+        "locality": "Hamburg",
+        "locality_gid": "whosonfirst:locality:85978013",
+        "continent": "North America",
+        "continent_gid": "whosonfirst:continent:102191575",
+        "label": "Hamburg, NY, USA"
+      },
+      "bbox": [
+        -78.860521,
+        42.709159,
+        -78.812825,
+        42.739765
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.849054,
+          42.469925
+        ]
+      },
+      "properties": {
+        "id": "404507293",
+        "gid": "whosonfirst:localadmin:404507293",
+        "layer": "localadmin",
+        "source": "whosonfirst",
+        "source_id": "404507293",
+        "name": "Hamburg Township",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "United States",
+        "country_gid": "whosonfirst:country:85633793",
+        "country_a": "USA",
+        "region": "Michigan",
+        "region_gid": "whosonfirst:region:85688599",
+        "region_a": "MI",
+        "county": "Livingston County",
+        "county_gid": "whosonfirst:county:102083145",
+        "county_a": "LI",
+        "localadmin": "Hamburg Township",
+        "localadmin_gid": "whosonfirst:localadmin:404507293",
+        "continent": "North America",
+        "continent_gid": "whosonfirst:continent:102191575",
+        "label": "Hamburg Township, MI, USA"
+      },
+      "bbox": [
+        -83.910805,
+        42.425174,
+        -83.787247,
+        42.514696
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.2748,
+          38.86616
+        ]
+      },
+      "properties": {
+        "id": "1343677873",
+        "gid": "whosonfirst:locality:1343677873",
+        "layer": "locality",
+        "source": "whosonfirst",
+        "source_id": "1343677873",
+        "name": "Hamburg",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "United States",
+        "country_gid": "whosonfirst:country:85633793",
+        "country_a": "USA",
+        "region": "Illinois",
+        "region_gid": "whosonfirst:region:85688697",
+        "region_a": "IL",
+        "county": "Bond County",
+        "county_gid": "whosonfirst:county:102081253",
+        "county_a": "BN",
+        "localadmin": "Pleasant Mound Township",
+        "localadmin_gid": "whosonfirst:localadmin:404497207",
+        "locality": "Hamburg",
+        "locality_gid": "whosonfirst:locality:1343677873",
+        "continent": "North America",
+        "continent_gid": "whosonfirst:continent:102191575",
+        "label": "Hamburg, IL, USA"
+      },
+      "bbox": [
+        -89.2948,
+        38.84616,
+        -89.2548,
+        38.88616
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.88333,
+          63.65
+        ]
+      },
+      "properties": {
+        "id": "1343546935",
+        "gid": "whosonfirst:locality:1343546935",
+        "layer": "locality",
+        "source": "whosonfirst",
+        "source_id": "1343546935",
+        "name": "Hamborg",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "Sweden",
+        "country_gid": "whosonfirst:country:85633789",
+        "country_a": "SWE",
+        "region": "Jamtland",
+        "region_gid": "whosonfirst:region:85688461",
+        "region_a": "JA",
+        "county": "Are",
+        "county_gid": "whosonfirst:county:1159303387",
+        "localadmin": "Kall",
+        "localadmin_gid": "whosonfirst:localadmin:1125359581",
+        "locality": "Hamborg",
+        "locality_gid": "whosonfirst:locality:1343546935",
+        "continent": "Europe",
+        "continent_gid": "whosonfirst:continent:102191581",
+        "label": "Hamborg, JA, Sweden"
+      },
+      "bbox": [
+        12.86333,
+        63.63,
+        12.90333,
+        63.67
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -91.06677,
+          31.57878
+        ]
+      },
+      "properties": {
+        "id": "1326555827",
+        "gid": "whosonfirst:locality:1326555827",
+        "layer": "locality",
+        "source": "whosonfirst",
+        "source_id": "1326555827",
+        "name": "Hamburg",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "United States",
+        "country_gid": "whosonfirst:country:85633793",
+        "country_a": "USA",
+        "region": "Mississippi",
+        "region_gid": "whosonfirst:region:85688579",
+        "region_a": "MS",
+        "county": "Franklin County",
+        "county_gid": "whosonfirst:county:102086665",
+        "county_a": "FR",
+        "locality": "Hamburg",
+        "locality_gid": "whosonfirst:locality:1326555827",
+        "continent": "North America",
+        "continent_gid": "whosonfirst:continent:102191575",
+        "label": "Hamburg, MS, USA"
+      },
+      "bbox": [
+        -91.08677,
+        31.55878,
+        -91.04677,
+        31.59878
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -99.17038,
+          38.12557
+        ]
+      },
+      "properties": {
+        "id": "1310527321",
+        "gid": "whosonfirst:locality:1310527321",
+        "layer": "locality",
+        "source": "whosonfirst",
+        "source_id": "1310527321",
+        "name": "Hamburg",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "United States",
+        "country_gid": "whosonfirst:country:85633793",
+        "country_a": "USA",
+        "region": "Kansas",
+        "region_gid": "whosonfirst:region:85688555",
+        "region_a": "KS",
+        "county": "Pawnee County",
+        "county_gid": "whosonfirst:county:102082127",
+        "county_a": "PN",
+        "localadmin": "Santa Fe Township",
+        "localadmin_gid": "whosonfirst:localadmin:404505467",
+        "locality": "Hamburg",
+        "locality_gid": "whosonfirst:locality:1310527321",
+        "continent": "North America",
+        "continent_gid": "whosonfirst:continent:102191575",
+        "label": "Hamburg, KS, USA"
+      },
+      "bbox": [
+        -99.19038,
+        38.10557,
+        -99.15038,
+        38.14557
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -91.93151,
+          31.03074
+        ]
+      },
+      "properties": {
+        "id": "1309931761",
+        "gid": "whosonfirst:locality:1309931761",
+        "layer": "locality",
+        "source": "whosonfirst",
+        "source_id": "1309931761",
+        "name": "Hamburg",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "United States",
+        "country_gid": "whosonfirst:country:85633793",
+        "country_a": "USA",
+        "region": "Louisiana",
+        "region_gid": "whosonfirst:region:85688735",
+        "region_a": "LA",
+        "county": "Avoyelles Parish",
+        "county_gid": "whosonfirst:county:102083799",
+        "county_a": "AV",
+        "locality": "Hamburg",
+        "locality_gid": "whosonfirst:locality:1309931761",
+        "continent": "North America",
+        "continent_gid": "whosonfirst:continent:102191575",
+        "label": "Hamburg, LA, USA"
+      },
+      "bbox": [
+        -91.95151,
+        31.01074,
+        -91.91151,
+        31.05074
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -78.63751,
+          38.80511
+        ]
+      },
+      "properties": {
+        "id": "1309924967",
+        "gid": "whosonfirst:locality:1309924967",
+        "layer": "locality",
+        "source": "whosonfirst",
+        "source_id": "1309924967",
+        "name": "Hamburg",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "United States",
+        "country_gid": "whosonfirst:country:85633793",
+        "country_a": "USA",
+        "region": "Virginia",
+        "region_gid": "whosonfirst:region:85688747",
+        "region_a": "VA",
+        "county": "Shenandoah County",
+        "county_gid": "whosonfirst:county:102081061",
+        "county_a": "SN",
+        "locality": "Hamburg",
+        "locality_gid": "whosonfirst:locality:1309924967",
+        "continent": "North America",
+        "continent_gid": "whosonfirst:continent:102191575",
+        "label": "Hamburg, VA, USA"
+      },
+      "bbox": [
+        -78.65751,
+        38.78511,
+        -78.61751,
+        38.82511
+      ]
+    }
+  ],
+  "bbox": [
+    -99.19038,
+    31.01074,
+    12.90333,
+    63.67
+  ]
+}
