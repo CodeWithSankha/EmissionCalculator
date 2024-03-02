@@ -27,7 +27,6 @@ public class EmissionCalculatorCmdController implements ApplicationRunner {
             logger.error("./co2-calculator --start \"Los Angeles\" --end \"New York\" --transportation-\n" +
                     "method=medium-diesel-car");
             return;
-            // TODO throw new InvalidArgsException(msg);
         }
         System.out.println("# NonOptionArgs: " + args.getNonOptionArgs().size());
 
