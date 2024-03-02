@@ -1,6 +1,7 @@
 package com.sap.assignment.emissioncalculator.controller;
 
 
+import com.sap.assignment.emissioncalculator.exceptions.InvalidArgsException;
 import com.sap.assignment.emissioncalculator.models.InternalDataModel;
 import com.sap.assignment.emissioncalculator.models.RequestParameters;
 import com.sap.assignment.emissioncalculator.service.EmissionCalculatorService;
@@ -21,7 +22,15 @@ public class EmissionCalculatorRestController {
 
     @PostMapping("/calculate_emission")
     public ResponseEntity<String> calculate_emission(@RequestBody RestRequestParameters body) {
-
+        if(body.startCity == null) {
+            throw new InvalidArgsException("start_city shouldn't be null");
+        }
+        if(body.endCity == null) {
+            throw new InvalidArgsException("end_city shouldn't be null");
+        }
+        if(body.transportationMode == null) {
+            throw new InvalidArgsException("transportation_mode shouldn't be null");
+        }
         try {
             InternalDataModel model = new InternalDataModel();
             model.requestParameters = new RequestParameters(body.startCity, body.endCity, body.transportationMode);
