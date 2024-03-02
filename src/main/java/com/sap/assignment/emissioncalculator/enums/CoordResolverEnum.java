@@ -1,7 +1,7 @@
 package com.sap.assignment.emissioncalculator.enums;
 
 public enum CoordResolverEnum {
-    FETCH_FIRST_COORD("fetch_first_coord");
+    FETCH_FIRST_COORD("FETCH_FIRST_COORD");
 
 
     public String getVal() {

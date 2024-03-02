@@ -29,9 +29,11 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+CMD="{\"start_city\":\"$START_CITY\", \"end_city\":\"$END_CITY\",  \"transportation_mode\": \"$MODE\"}"
+echo "CMD:$CMD"
 curl -X POST \
        'http://localhost:8080/v1/calculate_emission' \
      --header "Content-Type: application/json; charset=utf-8" \
      --header "Accept: application/json" \
-     -d "\"{\"start_city\":\"${START_CITY}\", \"end_city\":\"${END_CITY}\",  \"transportation_mode\": \"${MODE}\""
+     -d "$CMD"
 

@@ -21,7 +21,7 @@ public class CoordResolverFactory {
     public CoordResolver getCoordResolver(String resolverType) throws RuntimeException {
         CoordResolverEnum resolverEnum;
         try {
-            resolverEnum = CoordResolverEnum.valueOf(resolverType);
+            resolverEnum = Enum.valueOf(CoordResolverEnum.class, resolverType.toUpperCase());
         } catch (IllegalArgumentException ex) {
             throw new RuntimeException("Invalid Resolver Type:" + resolverType);
         }
