@@ -2,12 +2,9 @@ package com.sap.assignment.emissioncalculator.workflow;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.google.common.collect.ImmutableMap;
-import com.sap.assignment.emissioncalculator.exceptions.InvalidCityNameException;
 import com.sap.assignment.emissioncalculator.models.GeoCodeSearchResponse;
 import com.sap.assignment.emissioncalculator.models.InternalDataModel;
 import com.sap.assignment.emissioncalculator.models.RequestParameters;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,11 +24,6 @@ import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Map;
-
-import static com.sap.assignment.emissioncalculator.workflow.ConfigurationBean.API_KEY_TOKEN_NAME;
-import static com.sap.assignment.emissioncalculator.workflow.ConfigurationBean.CITY_NAME_TOKEN_NAME;
-import static com.sap.assignment.emissioncalculator.workflow.ConfigurationBean.GEOCODE_SEARCH_URL;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(value = "ORS_TOKEN=ORS_TOKEN")
