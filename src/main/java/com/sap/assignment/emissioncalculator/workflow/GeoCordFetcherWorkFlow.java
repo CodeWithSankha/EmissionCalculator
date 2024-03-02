@@ -31,7 +31,7 @@ public class GeoCordFetcherWorkFlow implements Function<InternalDataModel, Flux<
 
     private static final Logger logger = LoggerFactory.getLogger(GeoCordFetcherWorkFlow.class);
 
-    @Value("${OPEN_ROUTE_TOKEN}")
+    @Value("${ORS_TOKEN}")
     private String openRouteTokenApi;
 
     @Autowired
@@ -48,7 +48,7 @@ public class GeoCordFetcherWorkFlow implements Function<InternalDataModel, Flux<
                 .flatMap(this::fetchCoordsForCity)
                 .map(response -> {
                     try {
-                        logger.info("Response: {} for {}", GEOCODE_SEARCH_URL, jsonMapper.writeValueAsString(response));
+                        logger.info("Response: {} for {}", response.geoCoding.query.cityName, jsonMapper.writeValueAsString(response));
                     } catch (JsonProcessingException e) {
                         throw new RuntimeException(e);
                     }

@@ -13,7 +13,7 @@ public class InternalDataModel {
 
     public Map<String, GeoCodeSearchResponse> geoCoordResponses = new HashMap<>();
 
-    public Map<String, List<Double>> cityCoords;
+    public Map<String, List<Double>> cityCoords = new HashMap<>();
 
     public double distance;
     public double co2emission;
