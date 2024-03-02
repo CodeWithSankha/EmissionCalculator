@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+curl -X POST \
+       'http://localhost:8080/v1/calculate_emission' \
+     --header "Content-Type: application/json; charset=utf-8" \
+     --header "Accept: application/json" \
+     -d '{"start_city":"Hamburg", "end_city":"Berlin",  "transportation_mode": "medium-diesel-car"}'
+

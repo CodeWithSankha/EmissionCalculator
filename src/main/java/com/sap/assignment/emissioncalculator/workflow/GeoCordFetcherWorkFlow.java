@@ -3,6 +3,7 @@ package com.sap.assignment.emissioncalculator.workflow;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.google.common.collect.ImmutableMap;
+import com.sap.assignment.emissioncalculator.exceptions.InvalidCityNameException;
 import com.sap.assignment.emissioncalculator.models.GeoCodeSearchResponse;
 import com.sap.assignment.emissioncalculator.models.InternalDataModel;
 import org.slf4j.Logger;
@@ -15,15 +16,12 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
-import reactor.util.function.Tuple2;
 
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 import static com.sap.assignment.emissioncalculator.workflow.ConfigurationBean.API_KEY_TOKEN_NAME;
 import static com.sap.assignment.emissioncalculator.workflow.ConfigurationBean.CITY_NAME_TOKEN_NAME;
@@ -44,6 +42,12 @@ public class GeoCordFetcherWorkFlow implements Function<InternalDataModel, Flux<
     @Autowired
     private JsonMapper jsonMapper;
 
+    @Value("${coordinate.resolver.preference}")
+    private String coordResolverPreference;
+
+    @Autowired
+    private CoordResolverFactory coordResolverFactory;
+
     @Override
     public Flux<InternalDataModel> apply(InternalDataModel data) {
         final List<String> cities = List.of(data.requestParameters.startCity(), data.requestParameters.endCity());
@@ -54,15 +58,21 @@ public class GeoCordFetcherWorkFlow implements Function<InternalDataModel, Flux<
                 .map(response -> {
                     try {
                         logger.info("Response: {} for {}", response.geoCoding.query.cityName, jsonMapper.writeValueAsString(response));
-                        //Thread.sleep(100);
                     } catch (JsonProcessingException e) {
                         throw new RuntimeException(e);
-                    }/* catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }*/
+                    }
+                    if(response.features.isEmpty()) {
+                        throw new InvalidCityNameException("Unable to fetch coordinates for " + response.geoCoding.query.cityName);
+
+                    }
                     data.geoCoordResponses.put(response.geoCoding.query.cityName, response);
+
+                    CoordResolverFactory.CoordResolver coordResolver = coordResolverFactory.getCoordResolver(coordResolverPreference);
+                    coordResolver.resolveCoordinates(data, response.geoCoding.query.cityName);
+
                     return data;
-                }).sequential();
+                })
+                .sequential();
     }
 
     private Flux<GeoCodeSearchResponse> fetchCoordsForCity(String cityName) {

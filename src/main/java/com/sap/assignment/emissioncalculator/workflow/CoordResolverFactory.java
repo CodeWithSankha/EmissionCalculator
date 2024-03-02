@@ -16,17 +16,17 @@ public class CoordResolverFactory {
     private FirstCoordResolver firstCoordResolver;
 
 
-    public CoordResolver getCoordResolver(String resolverType) throws Exception {
+    public CoordResolver getCoordResolver(String resolverType) throws RuntimeException {
         switch (resolverType) {
             case "fetch_first_coord":
                 return firstCoordResolver;
             default:
-                throw new Exception("Undefined coord resolver type:" + resolverType);
+                throw new RuntimeException("Undefined coord resolver type:" + resolverType);
         }
     }
 
     public interface CoordResolver {
-        void resolveCoordinates(InternalDataModel internalDataModel);
+        void resolveCoordinates(InternalDataModel internalDataModel, String cityName);
     }
 
     @Component
@@ -35,13 +35,9 @@ public class CoordResolverFactory {
         private static final Logger logger = LoggerFactory.getLogger(FirstCoordResolver.class);
 
         @Override
-        public void resolveCoordinates(InternalDataModel internalDataModel) {
-            String startCityName = internalDataModel.requestParameters.startCity();
-            internalDataModel.cityCoords.put(startCityName, internalDataModel.geoCoordResponses.get(startCityName).features.get(0).geometry.coordinates);
-
-            String endCityName = internalDataModel.requestParameters.endCity();
-            internalDataModel.cityCoords.put(endCityName, internalDataModel.geoCoordResponses.get(endCityName).features.get(0).geometry.coordinates);
-            logger.info("City Coords {}", internalDataModel.cityCoords);
+        public void resolveCoordinates(InternalDataModel internalDataModel, String cityName) {
+            internalDataModel.cityCoords.put(cityName, internalDataModel.geoCoordResponses.get(cityName).features.get(0).geometry.coordinates);
+            logger.info("City Coords {}", internalDataModel.cityCoords.get(cityName));
         }
     }
 }
