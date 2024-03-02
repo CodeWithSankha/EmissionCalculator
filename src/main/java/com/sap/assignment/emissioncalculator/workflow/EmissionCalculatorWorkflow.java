@@ -20,7 +20,7 @@ public class EmissionCalculatorWorkflow implements Function<InternalDataModel, I
         try {
             final int emissionRate = VehicleEmissionRate.getEmissionRateByVehicleType(vehicleType);
             final double distance = data.distance;
-            data.co2emission = (distance * emissionRate);
+            data.co2emission = (distance * emissionRate) / 1000;
         } catch (InvalidVehicleTypeException e) {
             throw new RuntimeException(e);
         }

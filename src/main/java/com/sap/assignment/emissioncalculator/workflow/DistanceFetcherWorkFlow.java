@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.sap.assignment.emissioncalculator.models.InternalDataModel;
 import lombok.Builder;
+import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class DistanceFetcherWorkFlow implements Function<InternalDataModel, Flux
                 .map(response -> {
                     try {
                         logger.info("MATRIX_V2 Response: {}", jsonMapper.writeValueAsString(response));
-                        internalDataModel.distance = 42.00f;
+                        internalDataModel.distance = response.distances.get(0).get(1);
                     } catch (JsonProcessingException e) {
                         throw new RuntimeException(e);
                     }
@@ -54,7 +55,7 @@ public class DistanceFetcherWorkFlow implements Function<InternalDataModel, Flux
                 });
     }
 
-    private Mono<String> fetchDistanceBetweenCities(InternalDataModel internalDataModel) {
+    private Mono<MatrixResponseV2> fetchDistanceBetweenCities(InternalDataModel internalDataModel) {
         String payload = null;
         MatrixRequestV2 requestV2 = new MatrixRequestV2();
         requestV2.locations = internalDataModel.cityCoords.values();
@@ -78,9 +79,10 @@ public class DistanceFetcherWorkFlow implements Function<InternalDataModel, Flux
                 .header(API_TOKEN_HEADER_TYPE, openRouteTokenApi)
                 .bodyValue(payload)
                 .retrieve()
-                .bodyToMono(String.class);
+                .bodyToMono(MatrixResponseV2.class);
     }
 
+    @ToString
     static class MatrixRequestV2 {
         @JsonProperty("locations")
         public Collection<List<Double>> locations;
@@ -90,6 +92,27 @@ public class DistanceFetcherWorkFlow implements Function<InternalDataModel, Flux
 
         @JsonProperty("units")
         public String units;
+    }
+
+    @ToString
+    static class MatrixResponseV2 {
+        @JsonProperty("distances")
+        public List<List<Double>> distances;
+
+        @JsonProperty("destinations")
+        public List<LocationData> destinations;
+
+        @JsonProperty("sources")
+        public List<LocationData> sources;
+
+        @ToString
+        public static class LocationData {
+            @JsonProperty("location")
+            public List<Double> location;
+
+            @JsonProperty("snapped_distance")
+            public Double snappedDistance;
+        }
     }
 
 }

@@ -4,7 +4,7 @@ import com.sap.assignment.emissioncalculator.workflow.CoordinateResolverWorkflow
 import com.sap.assignment.emissioncalculator.workflow.DistanceFetcherWorkFlow;
 import com.sap.assignment.emissioncalculator.workflow.EmissionCalculatorWorkflow;
 import com.sap.assignment.emissioncalculator.workflow.GeoCordFetcherWorkFlow;
-import com.sap.assignment.emissioncalculator.workflow.RequestTransferWorkflow;
+import com.sap.assignment.emissioncalculator.workflow.RequestTransformerWorkflow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class EmissionCalculatorService implements ApplicationRunner {
     private static final Logger logger = LoggerFactory.getLogger(EmissionCalculatorService.class);
 
     @Autowired
-    private RequestTransferWorkflow requestTransferWorkflow;
+    private RequestTransformerWorkflow requestTransformerWorkflow;
 
     @Autowired
     private GeoCordFetcherWorkFlow geoCordFetcherWorkFlow;
@@ -54,7 +54,7 @@ public class EmissionCalculatorService implements ApplicationRunner {
         });
 
         Flux.just(args)
-                .flatMap(requestTransferWorkflow)
+                .flatMap(requestTransformerWorkflow)
                 .flatMap(geoCordFetcherWorkFlow)
                 .subscribe(model -> {
                     Flux.just(model)
@@ -62,7 +62,7 @@ public class EmissionCalculatorService implements ApplicationRunner {
                             .flatMap(distanceFetcherWorkFlow)
                             .map(emissionCalculatorWorkflow)
                             .subscribe(data -> {
-                                logger.info("Your trip caused {}kg of CO2-equivalent", data.co2emission);
+                                logger.info("Your trip caused {}kg of CO2-equivalent", String.format("%.3f", data.co2emission));
                             });
                 });
     }

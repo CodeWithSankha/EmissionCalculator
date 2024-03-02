@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux;
 import java.util.function.Function;
 
 @Component
-public class RequestTransferWorkflow implements Function<ApplicationArguments, Flux<InternalDataModel>> {
+public class RequestTransformerWorkflow implements Function<ApplicationArguments, Flux<InternalDataModel>> {
     @Override
     public Flux<InternalDataModel> apply(ApplicationArguments args) {
         InternalDataModel internalDataModel = new InternalDataModel();
