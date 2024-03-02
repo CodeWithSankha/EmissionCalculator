@@ -3,7 +3,8 @@ CO2 emission calculator
 
 
 ## Pre-Requisites
-It is assumed that Java17, Maven is installed on your computer
+
+It is assumed that Java17, Maven is installed on your computer and running on Linux System (preferred)
 
 ### Build the program
 
@@ -11,22 +12,20 @@ It is assumed that Java17, Maven is installed on your computer
 
 
 ### Setup ORS Token
-Windows
-
-set ORS_TOKEN=<Your Token>
-
-Linux
 
 export ORS_TOKEN=<Your Token>
 
 
 ###Run Unit test
+
 ./mvnw test
 
 ###Run the tomcat server
+
 ./mvnw spring-boot:run
 
-### Run Scripts
+### Calculate co2-emission using script
+
 ./co2-calculator --start=Hamburg --end=Berlin --transportation-method=medium-diesel-car
 
 ./co2-calculator --start "Los Angeles" --end "New York" --transportation-method large-electric-car
