@@ -4,34 +4,45 @@ CO2 emission calculator
 
 ## Pre-Requisites
 
-It is assumed that Java17, Maven is installed on your computer and running on Linux System (preferred)
+It is assumed that Java17, Maven, curl is installed on your computer and running on Linux System (preferred)
 
-### Build the program
+### Extract the tar
 
-./mvnw clean install
+$> ./setup.sh (It should also build the package and run the Unit tests)
 
+### Build the program (if unsuccessful with setup.sh)
+
+$> ./mvnw clean install
+
+## Navigate to package directory
+
+$> cd emissioncalculator
 
 ### Setup ORS Token
 
-export ORS_TOKEN=<Your Token>
+$> export ORS_TOKEN=<Your Token>
 
 
 ###Run Unit test
-
-./mvnw test
+$> ./mvnw test
 
 ###Run the tomcat server
 
-./mvnw spring-boot:run
+$> ./mvnw spring-boot:run
 
 ### Calculate co2-emission using script
 
-./co2-calculator --start=Hamburg --end=Berlin --transportation-method=medium-diesel-car
+Open another terminal and naviate to source package and execute the script to hit the server
+The script make a curl http request and prints the output in console.
 
-./co2-calculator --start "Los Angeles" --end "New York" --transportation-method large-electric-car
+$> cd emissioncalculator 
 
-./co2-calculator --end "New York" --start "Los Angeles" --transportation-method large-electric-car
+$> ./co2-calculator --start=Hamburg --end=Berlin --transportation-method=medium-diesel-car
 
-./co2-calculator --end "New York" --start "Los Angeles" --transportation-method=large-electric-car
+$> ./co2-calculator --start "Los Angeles" --end "New York" --transportation-method large-electric-car
 
-./co2-calculator --transportation-method large-electric-car --end="New York" --start "Los Angeles"
+$> ./co2-calculator --end "New York" --start "Los Angeles" --transportation-method large-electric-car
+
+$> ./co2-calculator --end "New York" --start "Los Angeles" --transportation-method=large-electric-car
+
+$> ./co2-calculator --transportation-method large-electric-car --end="New York" --start "Los Angeles"

@@ -17,8 +17,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.util.retry.Retry;
 
 import java.nio.charset.Charset;
+import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
@@ -39,6 +41,10 @@ public class DistanceFetcherWorkFlow implements Function<InternalDataModel, Flux
 
     @Autowired
     private JsonMapper jsonMapper;
+
+    private final int MATRIX_V2_MAX_RETRY = 3;
+
+    private final int RETRY_DELAY_IN_SECS = 1;
 
     @Override
     public Flux<InternalDataModel> apply(InternalDataModel internalDataModel) {
@@ -79,7 +85,8 @@ public class DistanceFetcherWorkFlow implements Function<InternalDataModel, Flux
                 .header(API_TOKEN_HEADER_TYPE, openRouteTokenApi)
                 .bodyValue(payload)
                 .retrieve()
-                .bodyToMono(MatrixResponseV2.class);
+                .bodyToMono(MatrixResponseV2.class)
+                .retryWhen(Retry.fixedDelay(MATRIX_V2_MAX_RETRY, Duration.ofSeconds(RETRY_DELAY_IN_SECS)));
     }
 
     @ToString
