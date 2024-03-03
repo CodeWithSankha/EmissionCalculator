@@ -1,0 +1,471 @@
+{
+  "geocoding": {
+    "version": "0.2",
+    "attribution": "https://openrouteservice.org/terms-of-service/#attribution-geocode",
+    "query": {
+      "text": "Los Angeles",
+      "size": 10,
+      "layers": [
+        "venue",
+        "street",
+        "country",
+        "macroregion",
+        "region",
+        "county",
+        "localadmin",
+        "locality",
+        "borough",
+        "neighbourhood",
+        "continent",
+        "empire",
+        "dependency",
+        "macrocounty",
+        "macrohood",
+        "microhood",
+        "disputed",
+        "postalcode",
+        "ocean",
+        "marinearea"
+      ],
+      "private": false,
+      "lang": {
+        "name": "English",
+        "iso6391": "en",
+        "iso6393": "eng",
+        "via": "header",
+        "defaulted": false
+      },
+      "querySize": 20,
+      "parser": "libpostal",
+      "parsed_text": {
+        "city": "los angeles"
+      }
+    },
+    "warnings": [
+      "performance optimization: excluding 'address' layer"
+    ],
+    "engine": {
+      "name": "Pelias",
+      "author": "Mapzen",
+      "version": "1.0"
+    },
+    "timestamp": 1709237351951
+  },
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.25703,
+          34.05513
+        ]
+      },
+      "properties": {
+        "id": "85923517",
+        "gid": "whosonfirst:locality:85923517",
+        "layer": "locality",
+        "source": "whosonfirst",
+        "source_id": "85923517",
+        "name": "Los Angeles",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "United States",
+        "country_gid": "whosonfirst:country:85633793",
+        "country_a": "USA",
+        "region": "California",
+        "region_gid": "whosonfirst:region:85688637",
+        "region_a": "CA",
+        "county": "Los Angeles County",
+        "county_gid": "whosonfirst:county:102086957",
+        "county_a": "LO",
+        "locality": "Los Angeles",
+        "locality_gid": "whosonfirst:locality:85923517",
+        "continent": "North America",
+        "continent_gid": "whosonfirst:continent:102191575",
+        "label": "Los Angeles, CA, USA"
+      },
+      "bbox": [
+        -118.668188,
+        33.703651,
+        -118.15537,
+        34.337311
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.334203,
+          -37.46612
+        ]
+      },
+      "properties": {
+        "id": "102017441",
+        "gid": "whosonfirst:locality:102017441",
+        "layer": "locality",
+        "source": "whosonfirst",
+        "source_id": "102017441",
+        "name": "Los Angeles",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "Chile",
+        "country_gid": "whosonfirst:country:85633057",
+        "country_a": "CHL",
+        "region": "Del Bio-Bio",
+        "region_gid": "whosonfirst:region:85682155",
+        "region_a": "BI",
+        "county": "Biobío",
+        "county_gid": "whosonfirst:county:102063151",
+        "county_a": "BI",
+        "locality": "Los Angeles",
+        "locality_gid": "whosonfirst:locality:102017441",
+        "continent": "South America",
+        "continent_gid": "whosonfirst:continent:102191577",
+        "label": "Los Angeles, BI, Chile"
+      },
+      "bbox": [
+        -72.4276846707,
+        -37.618883159,
+        -72.2403001658,
+        -37.2082013825
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.189475,
+          34.344417
+        ]
+      },
+      "properties": {
+        "id": "102086957",
+        "gid": "whosonfirst:county:102086957",
+        "layer": "county",
+        "source": "whosonfirst",
+        "source_id": "102086957",
+        "name": "Los Angeles County",
+        "confidence": 0.4,
+        "match_type": "fallback",
+        "accuracy": "centroid",
+        "country": "United States",
+        "country_gid": "whosonfirst:country:85633793",
+        "country_a": "USA",
+        "region": "California",
+        "region_gid": "whosonfirst:region:85688637",
+        "region_a": "CA",
+        "county": "Los Angeles County",
+        "county_gid": "whosonfirst:county:102086957",
+        "county_a": "LO",
+        "continent": "North America",
+        "continent_gid": "whosonfirst:continent:102191575",
+        "label": "Los Angeles County, CA, USA"
+      },
+      "bbox": [
+        -118.951721,
+        32.75004,
+        -117.646374,
+        34.823302
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.569261,
+          6.266684
+        ]
+      },
+      "properties": {
+        "id": "85764737",
+        "gid": "whosonfirst:neighbourhood:85764737",
+        "layer": "neighbourhood",
+        "source": "whosonfirst",
+        "source_id": "85764737",
+        "name": "Los Ángeles",
+        "confidence": 0.6,
+        "match_type": "fallback",
+        "accuracy": "centroid",
+        "country": "Colombia",
+        "country_gid": "whosonfirst:country:85632519",
+        "country_a": "COL",
+        "region": "Antioquia",
+        "region_gid": "whosonfirst:region:85670129",
+        "region_a": "AN",
+        "county": "Medellín",
+        "county_gid": "whosonfirst:county:421205069",
+        "county_a": "ME",
+        "neighbourhood": "Los Ángeles",
+        "neighbourhood_gid": "whosonfirst:neighbourhood:85764737",
+        "continent": "South America",
+        "continent_gid": "whosonfirst:continent:102191577",
+        "label": "Los Ángeles, AN, Colombia"
+      },
+      "bbox": [
+        -75.574261,
+        6.261684,
+        -75.564261,
+        6.271684
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -99.66948,
+          25.86208
+        ]
+      },
+      "properties": {
+        "id": "1226404309",
+        "gid": "whosonfirst:locality:1226404309",
+        "layer": "locality",
+        "source": "whosonfirst",
+        "source_id": "1226404309",
+        "name": "Los Angeles",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "Mexico",
+        "country_gid": "whosonfirst:country:85633293",
+        "country_a": "MEX",
+        "region": "Nuevo León",
+        "region_gid": "whosonfirst:region:85686681",
+        "region_a": "NLE",
+        "county": "Los Ramones",
+        "county_gid": "whosonfirst:county:102078735",
+        "county_a": "RM",
+        "locality": "Los Angeles",
+        "locality_gid": "whosonfirst:locality:1226404309",
+        "continent": "North America",
+        "continent_gid": "whosonfirst:continent:102191575",
+        "label": "Los Angeles, NLE, Mexico"
+      },
+      "bbox": [
+        -99.68948,
+        25.84208,
+        -99.64948,
+        25.88208
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.84993,
+          28.91177
+        ]
+      },
+      "properties": {
+        "id": "1226396769",
+        "gid": "whosonfirst:locality:1226396769",
+        "layer": "locality",
+        "source": "whosonfirst",
+        "source_id": "1226396769",
+        "name": "Los Angeles",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "Mexico",
+        "country_gid": "whosonfirst:country:85633293",
+        "country_a": "MEX",
+        "region": "Sonora",
+        "region_gid": "whosonfirst:region:85686549",
+        "region_a": "SON",
+        "county": "La Colorada",
+        "county_gid": "whosonfirst:county:102074411",
+        "county_a": "CO",
+        "locality": "Los Angeles",
+        "locality_gid": "whosonfirst:locality:1226396769",
+        "continent": "North America",
+        "continent_gid": "whosonfirst:continent:102191575",
+        "label": "Los Angeles, SON, Mexico"
+      },
+      "bbox": [
+        -110.86993,
+        28.89177,
+        -110.82993,
+        28.93177
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -100.72598,
+          25.45894
+        ]
+      },
+      "properties": {
+        "id": "1226335597",
+        "gid": "whosonfirst:locality:1226335597",
+        "layer": "locality",
+        "source": "whosonfirst",
+        "source_id": "1226335597",
+        "name": "Los Angeles",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "Mexico",
+        "country_gid": "whosonfirst:country:85633293",
+        "country_a": "MEX",
+        "region": "Coahuila de Zaragoza",
+        "region_gid": "whosonfirst:region:85686689",
+        "region_a": "COA",
+        "county": "Arteaga",
+        "county_gid": "whosonfirst:county:102078865",
+        "county_a": "AR",
+        "locality": "Los Angeles",
+        "locality_gid": "whosonfirst:locality:1226335597",
+        "continent": "North America",
+        "continent_gid": "whosonfirst:continent:102191575",
+        "label": "Los Angeles, COA, Mexico"
+      },
+      "bbox": [
+        -100.74598,
+        25.43894,
+        -100.70598,
+        25.47894
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.92985,
+          1.67273
+        ]
+      },
+      "properties": {
+        "id": "1226324075",
+        "gid": "whosonfirst:locality:1226324075",
+        "layer": "locality",
+        "source": "whosonfirst",
+        "source_id": "1226324075",
+        "name": "Los Angeles",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "Colombia",
+        "country_gid": "whosonfirst:country:85632519",
+        "country_a": "COL",
+        "region": "Caquetá",
+        "region_gid": "whosonfirst:region:85670179",
+        "region_a": "CQ",
+        "county": "Belén De Los Andaquíes",
+        "county_gid": "whosonfirst:county:1108700405",
+        "county_a": "BE",
+        "locality": "Los Angeles",
+        "locality_gid": "whosonfirst:locality:1226324075",
+        "continent": "South America",
+        "continent_gid": "whosonfirst:continent:102191577",
+        "label": "Los Angeles, CQ, Colombia"
+      },
+      "bbox": [
+        -75.94985,
+        1.65273,
+        -75.90985,
+        1.69273
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -99.91667,
+          24.15
+        ]
+      },
+      "properties": {
+        "id": "1226293671",
+        "gid": "whosonfirst:locality:1226293671",
+        "layer": "locality",
+        "source": "whosonfirst",
+        "source_id": "1226293671",
+        "name": "Los Angeles",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "Mexico",
+        "country_gid": "whosonfirst:country:85633293",
+        "country_a": "MEX",
+        "region": "Nuevo León",
+        "region_gid": "whosonfirst:region:85686681",
+        "region_a": "NLE",
+        "county": "Aramberri",
+        "county_gid": "whosonfirst:county:102078779",
+        "county_a": "AR",
+        "locality": "Los Angeles",
+        "locality_gid": "whosonfirst:locality:1226293671",
+        "continent": "North America",
+        "continent_gid": "whosonfirst:continent:102191575",
+        "label": "Los Angeles, NLE, Mexico"
+      },
+      "bbox": [
+        -99.93667,
+        24.13,
+        -99.89667,
+        24.17
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.93529,
+          30.59963
+        ]
+      },
+      "properties": {
+        "id": "1226290443",
+        "gid": "whosonfirst:locality:1226290443",
+        "layer": "locality",
+        "source": "whosonfirst",
+        "source_id": "1226290443",
+        "name": "Los Angeles",
+        "confidence": 1,
+        "match_type": "exact",
+        "accuracy": "centroid",
+        "country": "Mexico",
+        "country_gid": "whosonfirst:country:85633293",
+        "country_a": "MEX",
+        "region": "Sonora",
+        "region_gid": "whosonfirst:region:85686549",
+        "region_a": "SON",
+        "county": "Magdalena",
+        "county_gid": "whosonfirst:county:102074385",
+        "county_a": "MG",
+        "locality": "Los Angeles",
+        "locality_gid": "whosonfirst:locality:1226290443",
+        "continent": "North America",
+        "continent_gid": "whosonfirst:continent:102191575",
+        "label": "Los Angeles, SON, Mexico"
+      },
+      "bbox": [
+        -110.95529,
+        30.57963,
+        -110.91529,
+        30.61963
+      ]
+    }
+  ],
+  "bbox": [
+    -118.951721,
+    -37.618883159,
+    -72.2403001658,
+    34.823302
+  ]
+}

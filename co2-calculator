@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+POSITIONAL_ARGS=()
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --start)
+      START_CITY="$2"
+      shift # past argument
+      shift # past value
+      ;;
+    --end)
+      END_CITY="$2"
+      shift # past argument
+      shift # past value
+      ;;
+    --transportation-method)
+      MODE="$2"
+      shift # past argument
+      shift # past argument
+      ;;
+      --start=*)
+      START_CITY=$(echo $1 | cut -d'=' -f2)
+      shift # past value
+      ;;
+    --end=*)
+      END_CITY=$(echo $1 | cut -d'=' -f2)
+      shift # past value
+      ;;
+    --transportation-method=*)
+      MODE=$(echo $1 | cut -d'=' -f2)
+      shift # past argument
+      ;;
+    -*|--*)
+      echo "Unknown option $1"
+      exit 1
+      ;;
+    *)
+      POSITIONAL_ARGS+=("$1") # save positional arg
+      shift # past argument
+      ;;
+  esac
+done
+
+CMD="{\"start_city\":\"$START_CITY\", \"end_city\":\"$END_CITY\",  \"transportation_mode\": \"$MODE\"}"
+echo "Payload:$CMD"
+curl -X POST \
+       'http://localhost:8080/v1/calculate_emission' \
+     --header "Content-Type: application/json; charset=utf-8" \
+     --header "Accept: application/json" \
+     -d "$CMD"
+
