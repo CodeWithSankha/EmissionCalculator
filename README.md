@@ -20,7 +20,7 @@ $> cd emissioncalculator
 
 ### Setup ORS Token
 
-$> export ORS_TOKEN=<Your Token>
+$> export ORS_TOKEN=`<Your Token>`
 
 
 ### Run Unit test
