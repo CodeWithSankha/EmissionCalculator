@@ -23,10 +23,10 @@ $> cd emissioncalculator
 $> export ORS_TOKEN=<Your Token>
 
 
-###Run Unit test
+### Run Unit test
 $> ./mvnw test
 
-###Run the tomcat server
+### Run the tomcat server
 
 $> ./mvnw spring-boot:run
 
